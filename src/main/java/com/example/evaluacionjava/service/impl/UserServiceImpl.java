@@ -35,7 +35,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserResponse saveUserData(UserRequest userRequest) {
         UserDatum userDatum = new UserDatum();
-        List<UserPhone> phones = new ArrayList<>();
         UserResponse userResponse = new UserResponse();
 
         userDatum.setName(userRequest.getName());

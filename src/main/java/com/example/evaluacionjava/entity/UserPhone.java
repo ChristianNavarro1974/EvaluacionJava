@@ -1,8 +1,6 @@
 package com.example.evaluacionjava.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name = "USER_PHONE")
