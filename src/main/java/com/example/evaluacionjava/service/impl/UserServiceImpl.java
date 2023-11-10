@@ -73,6 +73,31 @@ public class UserServiceImpl implements UserService {
         return userResponse;
     }
 
+    @Override
+    public UserResponse getUserById(Long id) {
+        return null;
+    }
+
+    @Override
+    public UserResponse updateUser(Long id, UserRequest userDetails) {
+        return null;
+    }
+
+    @Override
+    public UserResponse partialUpdateUser(Long id, UserRequest userDetails) {
+        return null;
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+
+    }
+
+    @Override
+    public List<UserResponse> getAllUser() {
+        return null;
+    }
+
     private static long get64LeastSignificantBits() {
         Random random = new Random();
         long random63BitLong = random.nextLong() & 0x3FFFFFFFFFFFFFFFL;

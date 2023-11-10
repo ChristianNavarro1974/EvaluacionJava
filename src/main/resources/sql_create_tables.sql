@@ -1,4 +1,5 @@
-create table USER_DATA
+create schema EVALUATION;
+create table EVALUATION.USER_DATA
 (
     ID         INTEGER auto_increment,
     NAME       CHARACTER VARYING(255) not null,
@@ -14,7 +15,7 @@ create table USER_DATA
         primary key (ID)
 );
 
-create table USER_PHONE
+create table EVALUATION.USER_PHONE
 (
     ID         INTEGER auto_increment,
     NUMBER     CHARACTER VARYING(255) not null,
