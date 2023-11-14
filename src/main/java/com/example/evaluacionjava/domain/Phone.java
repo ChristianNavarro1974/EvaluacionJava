@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Phone {
-    @JsonProperty
+    @JsonProperty("numero")
     String number;
-    @JsonProperty
+    @JsonProperty("codigoCiudad")
     String citycode;
-    @JsonProperty
+    @JsonProperty("codigoPais")
     String countrycode;
 
     public String getNumber() {

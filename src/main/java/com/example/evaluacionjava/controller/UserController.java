@@ -1,6 +1,7 @@
 package com.example.evaluacionjava.controller;
 
 import com.example.evaluacionjava.domain.Message;
+import com.example.evaluacionjava.domain.UserDataResponse;
 import com.example.evaluacionjava.domain.UserRequest;
 import com.example.evaluacionjava.domain.UserResponse;
 import com.example.evaluacionjava.service.UserService;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping("/")
 public class UserController {
 
     final
@@ -23,7 +24,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> createUser(@RequestBody UserRequest userRequest) {
         UserResponse userResponse;
         try {
@@ -40,19 +41,25 @@ public class UserController {
         return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public ResponseEntity<List<UserResponse>> getAllUser() {
-        List<UserResponse> users = userService.getAllUser();
-        if (users != null) {
-            return ResponseEntity.ok(users);
-        } else {
-            return ResponseEntity.notFound().build();
+    @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> getAllUser() {
+        try{
+            List<UserResponse> users = userService.getAllUser();
+            if (users != null) {
+                return ResponseEntity.ok(users);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception ex) {
+            Message message = new Message();
+            message.setMessage(ex.getMessage());
+            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
-        UserResponse user = userService.getUserById(id);
+    public ResponseEntity<Object> getUserById(@PathVariable Integer id) {
+        UserDataResponse user = userService.getUserById(id);
         if (user != null) {
             return ResponseEntity.ok(user);
         } else {
@@ -61,7 +68,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserResponse> updateUser(@PathVariable Long id, @RequestBody UserRequest userDetails) {
+    public ResponseEntity<Object> updateUser(@PathVariable Integer id, @RequestBody UserRequest userDetails) {
         UserResponse updatedUser = userService.updateUser(id, userDetails);
         if (updatedUser != null) {
             return ResponseEntity.ok(updatedUser);
@@ -71,7 +78,7 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<UserResponse> partialUpdateUser(@PathVariable Long id, @RequestBody UserRequest userDetails) {
+    public ResponseEntity<Object> partialUpdateUser(@PathVariable Integer id, @RequestBody UserRequest userDetails) {
         UserResponse updatedUser = userService.partialUpdateUser(id, userDetails);
         if (updatedUser != null) {
             return ResponseEntity.ok(updatedUser);
@@ -81,7 +88,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }

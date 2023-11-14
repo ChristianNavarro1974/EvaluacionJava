@@ -9,13 +9,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserRequest {
-    @JsonProperty
+    @JsonProperty("nombre")
     String name;
-    @JsonProperty
+    @JsonProperty("correo")
     String email;
-    @JsonProperty
+    @JsonProperty("contraseña")
     String password;
-    @JsonProperty
+    @JsonProperty("telefonos")
     List<Phone> phones;
 
     public String getName() {

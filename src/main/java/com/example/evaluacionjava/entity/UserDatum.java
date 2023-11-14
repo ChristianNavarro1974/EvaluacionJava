@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -39,6 +40,10 @@ public class UserDatum {
 
     @Column(name = "ISACTIVE")
     private Boolean isactive;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_ID")
+    private List<UserPhone> phones;
 
     public UserDatum() {
     }
@@ -115,4 +120,11 @@ public class UserDatum {
         this.isactive = isactive;
     }
 
+    public List<UserPhone> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(List<UserPhone> phones) {
+        this.phones = phones;
+    }
 }
