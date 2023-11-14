@@ -1,11 +1,12 @@
 package com.example.evaluacionjava.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "USER_DATA")
@@ -41,9 +42,8 @@ public class UserDatum {
     @Column(name = "ISACTIVE")
     private Boolean isactive;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID")
-    private List<UserPhone> phones;
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    private List<UserPhone> userPhones = new ArrayList<>();
 
     public UserDatum() {
     }
@@ -120,11 +120,11 @@ public class UserDatum {
         this.isactive = isactive;
     }
 
-    public List<UserPhone> getPhones() {
-        return phones;
+    public List<UserPhone> getUserPhones() {
+        return userPhones;
     }
 
-    public void setPhones(List<UserPhone> phones) {
-        this.phones = phones;
+    public void setUserPhones(List<UserPhone> userPhones) {
+        this.userPhones = userPhones;
     }
 }

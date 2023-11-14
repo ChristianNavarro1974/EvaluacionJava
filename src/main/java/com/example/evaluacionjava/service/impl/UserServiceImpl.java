@@ -49,16 +49,16 @@ public class UserServiceImpl implements UserService {
         } else {
             throw new RuntimeException("Password no cumple con el formato");
         }
-        userDatum.setLastLogin(LocalDateTime.now());
         userDatum.setCreated(LocalDateTime.now());
         userDatum.setToken(this.dataTool.generateUUID());
+        userDatum.setLastLogin(LocalDateTime.now());
         userDatum.setIsactive(true);
         UserDatum saveData = userDatumRepository.save(userDatum);
         for (Phone phoneData : userRequest.getPhones()) {
             UserPhone phone = new UserPhone();
             phone.setNumber(phoneData.getNumber());
             phone.setCitycode(phoneData.getCitycode());
-            phone.setContrycode(phoneData.getCountrycode());
+            phone.setCountrycode(phoneData.getCountrycode());
             phone.setUser(saveData);
             userPhoneRepository.save(phone);
         }
@@ -84,13 +84,13 @@ public class UserServiceImpl implements UserService {
             userResponse.setCreatedDate(userDatum.getCreated());
             userResponse.setLastLogin(userDatum.getLastLogin());
             userResponse.setEmail(userDatum.getEmail());
-            List<UserPhone> userPhones = userDatum.getPhones();
+            List<UserPhone> userPhones = userDatum.getUserPhones();
             List<Phone> phoneList = new ArrayList<>();
             for (UserPhone phone : userPhones) {
                 Phone phoneData = new Phone();
                 phoneData.setNumber(phone.getNumber());
                 phoneData.setCitycode(phone.getCitycode());
-                phoneData.setCountrycode(phone.getContrycode());
+                phoneData.setCountrycode(phone.getCountrycode());
                 phoneList.add(phoneData);
             }
             userResponse.setPhones(phoneList);
@@ -100,6 +100,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserResponse updateUser(Integer id, UserRequest userRequest) {
 
         UserDatum userDatum = userDatumRepository.findById(id).orElse(null);
@@ -120,23 +121,19 @@ public class UserServiceImpl implements UserService {
         } else {
             throw new RuntimeException("Password no cumple con el formato");
         }
-        userDatum.setLastLogin(LocalDateTime.now());
-        userDatum.setCreated(LocalDateTime.now());
-        userDatum.setToken(this.dataTool.generateUUID());
+        userDatum.setModified(LocalDateTime.now());
         userDatum.setIsactive(true);
 
-        UserDatum saveData = userDatumRepository.save(userDatum);
-        if (!userRequest.getPhones().isEmpty()) {
-            userPhoneRepository.deleteByUser(userDatum);
-        }
+        userDatum.setUserPhones(new ArrayList<>());
         for (Phone phoneData : userRequest.getPhones()) {
             UserPhone phone = new UserPhone();
             phone.setNumber(phoneData.getNumber());
             phone.setCitycode(phoneData.getCitycode());
-            phone.setContrycode(phoneData.getCountrycode());
-            phone.setUser(saveData);
-            userPhoneRepository.save(phone);
+            phone.setCountrycode(phoneData.getCountrycode());
+            phone.setUser(userDatum);
+            userDatum.getUserPhones().add(phone);
         }
+        UserDatum saveData = userDatumRepository.update
 
         userResponse.setLastLogin(saveData.getLastLogin());
         userResponse.setUserId(saveData.getId().toString());
@@ -170,18 +167,18 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("Password no cumple con el formato");
         }
 
-        UserDatum saveData = userDatumRepository.save(userDatum);
-        if (!userRequest.getPhones().isEmpty()) {
-            userPhoneRepository.deleteByUser(userDatum);
-        }
+        userDatum.setModified(LocalDateTime.now());
+        userDatum.setIsactive(true);
+
         for (Phone phoneData : userRequest.getPhones()) {
             UserPhone phone = new UserPhone();
             phone.setNumber(phoneData.getNumber());
             phone.setCitycode(phoneData.getCitycode());
-            phone.setContrycode(phoneData.getCountrycode());
-            phone.setUser(saveData);
-            userPhoneRepository.save(phone);
+            phone.setCountrycode(phoneData.getCountrycode());
+            phone.setUser(userDatum);
+            userDatum.getUserPhones().add(phone);
         }
+        UserDatum saveData = userDatumRepository.save(userDatum);
 
         userResponse.setLastLogin(saveData.getLastLogin());
         userResponse.setUserId(saveData.getId().toString());
@@ -201,7 +198,7 @@ public class UserServiceImpl implements UserService {
     public List<UserResponse> getAllUser() {
         List<UserResponse> users = new ArrayList<>();
 
-        List<UserDatum> userDataList = userDatumRepository.findAll();
+        Iterable<UserDatum> userDataList = userDatumRepository.findAll();
         for (UserDatum userDatum : userDataList) {
             UserResponse userResponse = new UserResponse();
             userResponse.setUserId(userDatum.getId().toString());

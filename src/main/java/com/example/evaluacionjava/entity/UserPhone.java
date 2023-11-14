@@ -1,6 +1,8 @@
 package com.example.evaluacionjava.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "USER_PHONE")
@@ -16,11 +18,11 @@ public class UserPhone {
     @Column(name = "CITYCODE")
     private String citycode;
 
-    @Column(name = "CONTRYCODE")
-    private String contrycode;
+    @Column(name = "COUNTRYCODE")
+    private String countrycode;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "user_id")
     private UserDatum user;
 
     public UserPhone() {
@@ -50,12 +52,12 @@ public class UserPhone {
         this.citycode = citycode;
     }
 
-    public String getContrycode() {
-        return contrycode;
+    public String getCountrycode() {
+        return countrycode;
     }
 
-    public void setContrycode(String contrycode) {
-        this.contrycode = contrycode;
+    public void setCountrycode(String countrycode) {
+        this.countrycode = countrycode;
     }
 
     public UserDatum getUser() {

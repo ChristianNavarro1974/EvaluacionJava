@@ -1,5 +1,6 @@
-create schema EVALUATION;
-create table EVALUATION.USER_DATA
+drop table USER_PHONE;
+drop table USER_DATA;
+create table USER_DATA
 (
     ID         INTEGER auto_increment,
     NAME       CHARACTER VARYING(255) not null,
@@ -15,13 +16,14 @@ create table EVALUATION.USER_DATA
         primary key (ID)
 );
 
-create table EVALUATION.USER_PHONE
+
+create table USER_PHONE
 (
-    ID         INTEGER auto_increment,
-    NUMBER     CHARACTER VARYING(255) not null,
-    CITYCODE   CHARACTER VARYING(255) not null,
-    CONTRYCODE CHARACTER VARYING(255) not null,
-    USER_ID    INTEGER                not null,
+    ID          INTEGER auto_increment,
+    NUMBER      CHARACTER VARYING(255) not null,
+    CITYCODE    CHARACTER VARYING(255) not null,
+    COUNTRYCODE CHARACTER VARYING(255) not null,
+    USER_ID     INTEGER                not null,
     constraint PHONE_PK
         primary key (ID),
     constraint USER_FK
