@@ -42,7 +42,7 @@ public class UserDatum {
     @Column(name = "ISACTIVE")
     private Boolean isactive;
 
-    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserPhone> userPhones = new ArrayList<>();
 
     public UserDatum() {

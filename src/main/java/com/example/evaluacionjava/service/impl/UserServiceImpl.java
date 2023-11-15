@@ -123,7 +123,7 @@ public class UserServiceImpl implements UserService {
         }
         userDatum.setModified(LocalDateTime.now());
         userDatum.setIsactive(true);
-
+        userPhoneRepository.deleteByUser(userDatum);
         userDatum.setUserPhones(new ArrayList<>());
         for (Phone phoneData : userRequest.getPhones()) {
             UserPhone phone = new UserPhone();
@@ -133,7 +133,7 @@ public class UserServiceImpl implements UserService {
             phone.setUser(userDatum);
             userDatum.getUserPhones().add(phone);
         }
-        UserDatum saveData = userDatumRepository.update
+        UserDatum saveData = userDatumRepository.save(userDatum);
 
         userResponse.setLastLogin(saveData.getLastLogin());
         userResponse.setUserId(saveData.getId().toString());
