@@ -140,7 +140,7 @@ Y se recibirá la respuesta:
   "token": "d49656c8-018b-1000-9d13-3d8a3330e8a4",
   "id": "1",
   "creado": "2023-11-15T17:09:35.46673",
-  "modificado": "2023-11-15T17:05:43.3476729",
+  "modificado": "2023-11-15T17:15:43.3476729",
   "ultimoLogin": "2023-11-15T17:09:35.46673",
   "activo": true
 }
