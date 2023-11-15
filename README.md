@@ -200,3 +200,4 @@ create table USER_PHONE
         foreign key (USER_ID) references USER_DATA
 );
 ```
+Diagrama de clases: ![diagramaClases](https://github.com/ChristianNavarro1974/EvaluacionJava/assets/59838214/a24b9bfd-dcf3-4bc5-a713-014c78369733)
