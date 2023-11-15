@@ -31,7 +31,7 @@ public class UserController {
             userResponse = this.userService.saveUserData(userRequest);
         } catch (DataIntegrityViolationException ex) {
             Message message = new Message();
-            message.setMessage("El correo ya registrado");
+            message.setMessage("El correo ya está registrado");
             return new ResponseEntity<>(message, HttpStatus.ALREADY_REPORTED);
         } catch (Exception ex) {
             Message message = new Message();

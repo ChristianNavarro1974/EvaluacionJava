@@ -67,6 +67,7 @@ public class UserServiceImpl implements UserService {
         userResponse.setUserId(saveData.getId().toString());
         userResponse.setActive(saveData.getIsactive());
         userResponse.setCreatedDate(saveData.getCreated());
+        userResponse.setModificatedDate(saveData.getModified());
         userResponse.setToken(saveData.getToken());
 
         return userResponse;
@@ -84,6 +85,7 @@ public class UserServiceImpl implements UserService {
             userResponse.setCreatedDate(userDatum.getCreated());
             userResponse.setLastLogin(userDatum.getLastLogin());
             userResponse.setEmail(userDatum.getEmail());
+            userResponse.setModificatedDate(userDatum.getModified());
             List<UserPhone> userPhones = userDatum.getUserPhones();
             List<Phone> phoneList = new ArrayList<>();
             for (UserPhone phone : userPhones) {
@@ -139,6 +141,7 @@ public class UserServiceImpl implements UserService {
         userResponse.setUserId(saveData.getId().toString());
         userResponse.setActive(saveData.getIsactive());
         userResponse.setCreatedDate(saveData.getCreated());
+        userResponse.setModificatedDate(saveData.getModified());
         userResponse.setToken(saveData.getToken());
 
         return userResponse;
@@ -191,7 +194,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Integer id) {
-
+        UserDatum userDatum = userDatumRepository.findById(id).orElse(null);
+        if (userDatum != null) {
+            userDatumRepository.delete(userDatum);
+        }
     }
 
     @Override
@@ -205,6 +211,7 @@ public class UserServiceImpl implements UserService {
             userResponse.setActive(userDatum.getIsactive());
             userResponse.setCreatedDate(userDatum.getCreated());
             userResponse.setLastLogin(userDatum.getLastLogin());
+            userResponse.setModificatedDate(userDatum.getModified());
             userResponse.setToken(userDatum.getToken());
             users.add(userResponse);
         }

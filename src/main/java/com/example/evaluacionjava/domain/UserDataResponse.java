@@ -17,13 +17,13 @@ public class UserDataResponse {
     String email;
     @JsonProperty("telefonos")
     List<Phone> phones;
-    @JsonProperty
+    @JsonProperty("creado")
     LocalDateTime createdDate;
-    @JsonProperty
+    @JsonProperty("modificado")
     LocalDateTime modificatedDate;
-    @JsonProperty
+    @JsonProperty("ultimoLogin")
     LocalDateTime lastLogin;
-    @JsonProperty
+    @JsonProperty("activo")
     Boolean active;
 
     public String getName() {

@@ -10,17 +10,17 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserResponse {
-    @JsonProperty
+    @JsonProperty("id")
     String userId;
-    @JsonProperty
+    @JsonProperty("creado")
     LocalDateTime createdDate;
-    @JsonProperty
+    @JsonProperty("modificado")
     LocalDateTime modificatedDate;
-    @JsonProperty
+    @JsonProperty("ultimoLogin")
     LocalDateTime lastLogin;
     @JsonProperty
     UUID token;
-    @JsonProperty
+    @JsonProperty("activo")
     Boolean active;
 
     public String getUserId() {

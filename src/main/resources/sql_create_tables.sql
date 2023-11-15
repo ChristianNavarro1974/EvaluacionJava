@@ -1,5 +1,5 @@
-drop table USER_PHONE;
-drop table USER_DATA;
+drop table if exists USER_PHONE;
+drop table if exists USER_DATA;
 create table USER_DATA
 (
     ID         INTEGER auto_increment,
